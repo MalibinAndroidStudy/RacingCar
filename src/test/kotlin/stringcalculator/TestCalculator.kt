@@ -1,8 +1,11 @@
 package stringcalculator
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import stringcaclulator.Calculator
+import stringcaclulator.Checker
+import java.lang.IllegalArgumentException
 
 class TestCalculator {
     @Test
@@ -13,40 +16,36 @@ class TestCalculator {
     }
 
     @Test
-    fun splitTextTest() {
-        val calculator = Calculator()
-        val result = calculator.splitInput("2 3")
-        assertThat(result).isEqualTo(listOf("2", "3"))
+    fun mathExpressionTest() {
+        val checker = Checker()
+        assertThatThrownBy {
+            checker.checkMathExpressionSize(
+                listOf("2", "*")
+            )
+        }.isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
-    fun calculateWithSplitListTest() {
+    fun calculateProgressivelyTest() {
         val calculator = Calculator()
-        val result = calculator.calculateWithSplitList(
+        val result = calculator.calculateProgressively(
             listOf("2", "+", "3", "/", "4", "*", "5")
         )
         assertThat(result).isEqualTo(6.25)
     }
 
     @Test
-    fun checkThenCalculateTest() {
-        val calculator = Calculator()
-        val result = calculator.checkThenCalculate("/", 3.0, "2")
-        assertThat(result).isEqualTo(1.5)
-    }
-
-    @Test
     fun checkNumberTest() {
-        val calculator = Calculator()
-        val result = calculator.checkNumber("134")
-        assertThat(result).isEqualTo(true)
+        val checker = Checker()
+        assertThatThrownBy { checker.checkNumber("*") }
+            .isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
     fun checkOperatorTest() {
-        val calculator = Calculator()
-        val result = calculator.checkOperator("-")
-        assertThat(result).isEqualTo(true)
+        val checker = Checker()
+        assertThatThrownBy { checker.checkOperator(".") }
+            .isInstanceOf(IllegalArgumentException::class.java)
     }
 
     @Test
