@@ -60,17 +60,16 @@ class Calculator {
         return result
     }
 
-    fun <T : Number> add(number1: T, number2: T) =
+    fun add(number1: Double, number2: Double) =
         number1.toDouble() + number2.toDouble()
 
-    fun <T : Number> subtract(number1: T, number2: T): T {
+    fun subtract(number1: Double, number2: Double): Double {
         val result = number1.toDouble()
             .minus(number2.toDouble())
-        val roundResult = round(result * 1000) / 1000.0
-        return roundResult as T
+        return round(result * 1000) / 1000.0
     }
 
-    fun <T : Number> divide(number1: T, number2: T) = number1.toDouble() / number2.toDouble()
+    fun divide(number1: Double, number2: Double) = number1 / number2
 
-    fun <T : Number> multiply(number1: T, number2: T) = number1.toDouble() * number2.toDouble()
+    fun multiply(number1: Double, number2: Double) = number1 * number2
 }
