@@ -35,7 +35,7 @@ class CalculatorTestCode {
     fun calculateTest() {
         val listString = listOf("4", "+", "2", "/", "3")
         val stringCalculator = StringCalculator()
-        stringCalculator.calculate(listString)
+        assertThat(stringCalculator.calculate(listString)).isEqualTo(2)
     }
 
     @Test
@@ -50,18 +50,9 @@ class CalculatorTestCode {
         assertThatThrownBy { InspectInput.checkBlank(calculateString) }
     }
 
-    // @Test
-    // fun splitEquationTest() {
-    //     val stringCalculator = StringCalculator()
-    //     val splitEquation = stringCalculator.splitEquation("1 + 3")
-    //     val listString = listOf("1", "+", "3")
-    //     assertThat(splitEquation).isEqualTo(stringCalculator.calculate(listString))
-    // }
-    //
-    // @Test
-    // fun activateCheckBadOperatorTest() {
-    //     val stringCalculator = StringCalculator()
-    //     val splitString = listOf("18", "/", "9")
-    //     stringCalculator.activateCheckBadOperator(splitString)
-    // }
+    @Test
+    fun splitEquationTest() {
+        val listString = listOf("1", "+", "3")
+        assertThat(listString).isEqualTo(InspectInput.splitEquation("1 + 3"))
+    }
 }

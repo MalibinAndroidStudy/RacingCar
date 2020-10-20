@@ -1,5 +1,3 @@
-
-
 class StringCalculator {
     fun calculate(splitString: List<String>): Int {
         var resultValue = splitString[0].toInt()
