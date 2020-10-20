@@ -1,8 +1,15 @@
-object BadCalculateStringCheck {
+object InspectInput {
     fun checkBlank(input: String) {
-        require(!input.isBlank()) {
+        require(input.isNotBlank()) {
             "공백은 입력할 수 없습니다."
         }
+    }
+
+    fun splitEquation(input: String): List<String> {
+        val splitString: List<String> = input.split(" ")
+        checkOperator(splitString)
+
+        return splitString
     }
 
     fun checkOperator(splitString: List<String>) {

@@ -1,18 +1,7 @@
 
 
 class StringCalculator {
-
-    fun splitEquation(input: String) {
-        val splitString: List<String> = input.split(" ")
-        activateCheckBadOperator(splitString)
-    }
-
-    fun activateCheckBadOperator(splitString: List<String>) {
-        BadCalculateStringCheck.checkOperator(splitString)
-        calculate(splitString)
-    }
-
-    fun calculate(splitString: List<String>) {
+    fun calculate(splitString: List<String>): Int {
         var resultValue = splitString[0].toInt()
 
         for (i in 1 until splitString.indices.count() step 2) {
@@ -33,7 +22,7 @@ class StringCalculator {
                 }
             }
         }
-        println("계산한 값은 $resultValue 입니다.")
+        return resultValue
     }
 
     fun add(i: Int, j: Int): Int {
