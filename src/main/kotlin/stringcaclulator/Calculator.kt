@@ -43,8 +43,7 @@ class Calculator {
     }
 
     fun checkNumber(number: String): Boolean {
-        val result = "[0-9]+|[0-9]+[.][0-9]+".toRegex()
-            .matches(number)
+        val result = NUMBER_REGEX.matches(number)
         if (!result) {
             throw IllegalArgumentException("숫자 위치에 잘못된 값이 들어있습니다. 잘못된 숫자: $number")
         }
@@ -52,8 +51,7 @@ class Calculator {
     }
 
     fun checkOperator(operator: String): Boolean {
-        val result = "[+]|[-]|[*]|[/]".toRegex()
-            .matches(operator)
+        val result = OPERATOR_REGEX.matches(operator)
         if (!result) {
             throw IllegalArgumentException("연산자 위치에 잘못된 값이 들어있습니다. 잘못된 연산자: $operator")
         }
@@ -72,4 +70,9 @@ class Calculator {
     fun divide(number1: Double, number2: Double) = number1 / number2
 
     fun multiply(number1: Double, number2: Double) = number1 * number2
+
+    companion object {
+        private val NUMBER_REGEX = "[0-9]+|[0-9]+[.][0-9]+".toRegex()
+        private val OPERATOR_REGEX = "[+]|[-]|[*]|[/]".toRegex()
+    }
 }
