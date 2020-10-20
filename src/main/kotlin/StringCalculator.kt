@@ -1,58 +1,39 @@
-import CheckString.checkOperator
-import java.util.Scanner
+
 
 class StringCalculator {
-    private var result: Int = 0
-    val checkString = CheckString
-
-    fun readEquation() {
-        println("계산할 식을 입력하세요")
-        val scanner = Scanner(System.`in`)
-        val input = scanner.nextLine()
-        splitEquation(input)
-    }
 
     fun splitEquation(input: String) {
-        checkString.checkBlank(input)
         val splitString: List<String> = input.split(" ")
+        activateCheckBadOperator(splitString)
+    }
+
+    fun activateCheckBadOperator(splitString: List<String>) {
+        BadCalculateStringCheck.checkOperator(splitString)
         calculate(splitString)
     }
 
-    fun calculate(splitString: List<String>): Boolean {
-        val finalresultNumber = setUpCalculate(splitString)
-        if (checkOperator(splitString) == false) {
-            return false
-        }
-        println("계산한 값은 $finalresultNumber 입니다.")
-        return true
-    }
+    fun calculate(splitString: List<String>) {
+        var resultValue = splitString[0].toInt()
 
-    fun setUpCalculate(splitString: List<String>): Int {
-        val eachSplitString = splitString.indices
-        result = splitString[0].toInt()
-
-        for (i in eachSplitString) {
-
-            when (i % 2) {
-                1 -> {
-                    when (splitString[i]) {
-                        "+" -> {
-                            result = add(result, splitString[i + 1].toInt())
-                        }
-                        "-" -> {
-                            result = subtract(result, splitString[i + 1].toInt())
-                        }
-                        "*" -> {
-                            result = multiply(result, splitString[i + 1].toInt())
-                        }
-                        "/" -> {
-                            result = divide(result, splitString[i + 1].toInt())
-                        }
-                    }
+        for (i in 1 until splitString.indices.count() step 2) {
+            val operator = splitString[i]
+            val rightOperand = splitString[i + 1].toInt()
+            when (operator) {
+                "+" -> {
+                    resultValue = add(resultValue, rightOperand)
+                }
+                "-" -> {
+                    resultValue = subtract(resultValue, rightOperand)
+                }
+                "*" -> {
+                    resultValue = multiply(resultValue, rightOperand)
+                }
+                "/" -> {
+                    resultValue = divide(resultValue, rightOperand)
                 }
             }
         }
-        return result
+        println("계산한 값은 $resultValue 입니다.")
     }
 
     fun add(i: Int, j: Int): Int {

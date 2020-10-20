@@ -1,4 +1,5 @@
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 
 class CalculatorTestCode {
@@ -31,6 +32,25 @@ class CalculatorTestCode {
     }
 
     @Test
+    fun calculateTest() {
+        val listString = listOf("4", "+", "2", "/", "3")
+        val stringCalculator = StringCalculator()
+        stringCalculator.calculate(listString)
+    }
+
+    @Test
+    fun checkOperator() {
+        val splitString = listOf("4", "*", "2")
+        BadCalculateStringCheck.checkOperator(splitString)
+    }
+
+    @Test
+    fun checkBlank() {
+        val calculateString = " "
+        assertThatThrownBy { BadCalculateStringCheck.checkBlank(calculateString) }
+    }
+
+    @Test
     fun splitEquationTest() {
         val stringCalculator = StringCalculator()
         val splitEquation = stringCalculator.splitEquation("1 + 3")
@@ -39,25 +59,9 @@ class CalculatorTestCode {
     }
 
     @Test
-    fun setUpCalculateTest() {
+    fun activateCheckBadOperatorTest() {
         val stringCalculator = StringCalculator()
-        val listString = listOf("4", "+", "2")
-        val result = stringCalculator.setUpCalculate(listString)
-        assertThat(result).isEqualTo(6)
-    }
-
-    @Test
-    fun calculateTest() {
-        val listString = listOf("4", "+", "2")
-        val stringCalculator = StringCalculator()
-        val result = stringCalculator.calculate(listString)
-        assertThat(result).isEqualTo(true)
-    }
-
-    @Test
-    fun checkOperator() {
-        val splitString = listOf("4", "*", "2")
-        val result = CheckString.checkOperator(splitString)
-        assertThat(result).isEqualTo(true)
+        val splitString = listOf("18", "/", "9")
+        stringCalculator.activateCheckBadOperator(splitString)
     }
 }
