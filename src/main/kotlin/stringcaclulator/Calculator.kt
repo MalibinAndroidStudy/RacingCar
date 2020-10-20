@@ -5,13 +5,8 @@ import kotlin.math.round
 
 class Calculator {
     fun calculate(input: String): Double {
-        val inputList = splitInput(input)
+        val inputList = input.split(" ")
         return calculateWithSplitList(inputList)
-    }
-
-    fun splitInput(input: String): List<String> {
-        return input
-            .split(" ")
     }
 
     fun calculateWithSplitList(splitList: List<String>): Double {
@@ -58,12 +53,10 @@ class Calculator {
         return result
     }
 
-    fun add(number1: Double, number2: Double) =
-        number1.toDouble() + number2.toDouble()
+    fun add(number1: Double, number2: Double) = number1 + number2
 
     fun subtract(number1: Double, number2: Double): Double {
-        val result = number1.toDouble()
-            .minus(number2.toDouble())
+        val result = number1 - number2
         return round(result * 1000) / 1000.0
     }
 
