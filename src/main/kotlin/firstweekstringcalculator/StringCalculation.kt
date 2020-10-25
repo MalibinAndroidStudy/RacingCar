@@ -8,16 +8,9 @@ class StringCalculation {
         return calculateString.split(" ")
     }
 
-    private fun operation(result: Double, operand: Int, operator: String): Double {
-        return when (operator) {
-            "+" -> result + operand
-            "-" -> result - operand
-            "*" -> result * operand
-            "/" -> result / operand
-            else -> throw IllegalArgumentException(
-                "$operator 를 연산자로 사용하실 수 없습니다. +, -, *, / 의 연산을 사용해주세요."
-            )
-        }
+    private fun operation(result: Double, operand: Double, operatorSymbol: String): Double {
+        val operator = Operator.findByOperatorSymbol(operatorSymbol)
+        return operator.calculateStrategy(result, operand)
     }
 
     private fun calculateAccumulator(calculateList: List<String>): Double {
@@ -27,9 +20,9 @@ class StringCalculation {
 
         for (i in 1 until calculateList.size step 2) {
             val operator: String = calculateList[i]
-            val operand: Int = calculateList[i + 1].also {
+            val operand: Double = calculateList[i + 1].also {
                 validateCalculateString.validateOperand(it)
-            }.toInt()
+            }.toDouble()
             accumulator = operation(accumulator, operand, operator)
         }
         return accumulator
