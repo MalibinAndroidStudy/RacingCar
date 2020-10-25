@@ -3,7 +3,7 @@ package firstweekstringcalculator
 import java.lang.IllegalArgumentException
 
 enum class Operator(
-    val operatorSymbol: String,
+    private val operatorSymbol: String,
     val calculateStrategy: (Double, Double) -> Double
 ) {
     PLUS("+", { leftValue, rightValue -> leftValue + rightValue }),

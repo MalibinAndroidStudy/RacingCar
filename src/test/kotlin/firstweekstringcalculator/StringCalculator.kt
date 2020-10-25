@@ -11,7 +11,7 @@ class StringCalculator {
         val calculationString: String = "2 + 3 * 4 / 2"
         val stringCalculation = StringCalculation()
 
-        assertThat(stringCalculation.calculate(calculationString)).isEqualTo(10)
+        assertThat(stringCalculation.calculate(calculationString)).isEqualTo(10.0)
     }
 
     @Test
