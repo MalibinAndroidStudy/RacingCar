@@ -37,12 +37,10 @@ class TestCode {
     @Test
     fun divideZeroIllegalArgumentException() {
         val calculator = Calculator("3 / 0")
-        val throwTest: () -> Unit = {
-            calculator.calculate()
-        }
 
-        assertThatThrownBy(throwTest)
+        assertThatThrownBy { calculator.calculate() }
             .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("0으로 나눌 수 없습니다.")
     }
 
     @Test
@@ -54,47 +52,32 @@ class TestCode {
     @Test
     fun noGapWithNumberAndOperation() {
         val calculator = Calculator("3+5/2")
-        val throwTest: () -> Unit = {
-            calculator.calculate()
-        }
-
-        assertThatThrownBy(throwTest)
+        assertThatThrownBy { calculator.calculate() }
             .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("유효한 수식이 아닙니다.")
     }
 
     @Test
     fun oneOperatorLeak() {
         val calculator = Calculator("3 + 5 -")
-        val throwTest: () -> Unit = {
-            calculator.calculate()
-        }
-
-        assertThatThrownBy(throwTest)
+        assertThatThrownBy { calculator.calculate() }
             .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("유효한 수식이 아닙니다.")
     }
 
     @Test
     fun lastGapExist() {
         val calculator = Calculator("3 + 5 ")
-        val throwTest: () -> Unit = {
-            calculator.calculate()
-        }
-
-        assertThatThrownBy(throwTest)
+        assertThatThrownBy { calculator.calculate() }
             .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("마지막 식에 빈 문자열을 입력하지 마십쇼")
     }
 
     @Test
     fun noInput() {
         val calculator = Calculator("")
-        val throwTest: () -> Unit = {
-            calculator.calculate()
-        }
-
-        assertThatThrownBy(throwTest)
+        assertThatThrownBy { calculator.calculate() }
             .isInstanceOf(IllegalArgumentException::class.java)
+            .hasMessageContaining("빈 수식은 연산이 안됩니다.")
     }
-
-
-
 }
