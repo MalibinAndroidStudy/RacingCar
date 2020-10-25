@@ -1,68 +1,46 @@
 package firstweekstringcalculator
 
-import java.lang.NumberFormatException
+class StringCalculation {
 
-class StringCalculation(
-    private val calculateString: String?
-) {
+    private val validateCalculateString = ValidateStringCalculation()
 
-    private fun validCalculateString(): List<String> {
-        if (calculateString.isNullOrBlank()) {
-            throw IllegalArgumentException("입력값이 Null 이거나 공백일 수 없습니다")
-        }
+    private fun splitCalculateString(calculateString: String): List<String> {
         return calculateString.split(" ")
     }
 
-    private fun validOperand(operand: String): Int {
-        return try {
-            operand.toInt()
-        } catch (errorMessage: NumberFormatException) {
-            throw IllegalArgumentException("$operand 은 피연산자로 사용될 수 없습니다.")
-        }
-    }
-
-    private fun operation(result: Int, operand: Int, operator: String): Int {
+    private fun operation(result: Double, operand: Int, operator: String): Double {
         return when (operator) {
-            "+" -> add(result, operand)
-            "-" -> minus(result, operand)
-            "*" -> multiplication(result, operand)
-            "/" -> divide(result, operand)
+            "+" -> result + operand
+            "-" -> result - operand
+            "*" -> result * operand
+            "/" -> result / operand
             else -> throw IllegalArgumentException(
                 "$operator 를 연산자로 사용하실 수 없습니다. +, -, *, / 의 연산을 사용해주세요."
             )
         }
     }
 
-    private fun add(result: Int, operand: Int): Int {
-        return result + operand
-    }
+    private fun calculateAccumulator(calculateList: List<String>): Double {
+        var accumulator = calculateList[0].also {
+            validateCalculateString.validateOperand(it)
+        }.toDouble()
 
-    private fun minus(result: Int, operand: Int): Int {
-        return result - operand
-    }
-
-    private fun multiplication(result: Int, operand: Int): Int {
-        return result * operand
-    }
-
-    private fun divide(result: Int, operand: Int): Int {
-        return result / operand
-    }
-
-    private fun calculate(calculateList: List<String>): Int {
-        var result = validOperand(calculateList[0])
         for (i in 1 until calculateList.size step 2) {
             val operator: String = calculateList[i]
-            val operand: Int = validOperand(calculateList[i + 1])
-            result = operation(result, operand, operator)
+            val operand: Int = calculateList[i + 1].also {
+                validateCalculateString.validateOperand(it)
+            }.toInt()
+            accumulator = operation(accumulator, operand, operator)
         }
-        return result
+        return accumulator
     }
 
-    fun calculateResult(): Int {
+    fun calculate(calculateString: String?): Double {
+        val validString = validateCalculateString.validateCalculateString(calculateString)
+        val calculateStringList: List<String> = splitCalculateString(validString).also {
+            validateCalculateString.validateCalculateList(it)
+        }
 
-        val calculateStringList: List<String> = validCalculateString()
-
-        return calculate(calculateStringList)
+        return calculateAccumulator(calculateStringList)
     }
 }
