@@ -1,3 +1,5 @@
+package calculator
+
 class StringCalculator {
     fun calculate(splitString: List<String>): Int {
         var accumulateValue = splitString[0].toInt()
@@ -6,8 +8,8 @@ class StringCalculator {
             val rightValue = splitString[i + 1].toInt()
             val inputOperator = splitString[i]
 
-            val operator = Operator.findBySymbol(inputOperator)
-            operator.calculateMethod(accumulateValue, rightValue)
+            accumulateValue = OperatorChecker.findBySymbol(inputOperator)
+                .calculateMethod(accumulateValue, rightValue)
         }
         return accumulateValue
     }
