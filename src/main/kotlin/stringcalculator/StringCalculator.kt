@@ -1,5 +1,12 @@
-import java.lang.IllegalArgumentException
+package stringcalculator
 
+import java.lang.IllegalArgumentException
+//fun main() {
+//    val keyboardInputString = readLine() ?: throw IllegalArgumentException("입력값은 null일 수 없습니다.")
+//    val splitList = SplitString().splitString(keyboardInputString)
+//    val resultValue = StringCalculator().calculate(splitList)
+//    print("계산값은 ${resultValue}입니다.")
+//}
 class StringCalculator {
     fun calculate(splitList: List<String>): Int {
         val firstString = splitList[0]

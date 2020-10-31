@@ -1,3 +1,5 @@
+package stringcalculator
+
 import java.lang.IllegalArgumentException
 
 enum class Operator(
