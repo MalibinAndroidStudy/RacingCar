@@ -1,7 +1,5 @@
 package firstweekstringcalculator
 
-import java.lang.IllegalArgumentException
-
 enum class Operator(
     private val operatorSymbol: String,
     val calculateStrategy: (Double, Double) -> Double
@@ -9,11 +7,18 @@ enum class Operator(
     PLUS("+", { leftValue, rightValue -> leftValue + rightValue }),
     MINUS("-", { leftValue, rightValue -> leftValue - rightValue }),
     MULTIPLY("*", { leftValue, rightValue -> leftValue * rightValue }),
-    DIVIDE("/", { leftValue, rightValue -> leftValue / rightValue });
+    DIVIDE(
+        "/",
+        { leftValue, rightValue ->
+            if (rightValue != 0.0) leftValue / rightValue else throw IllegalArgumentException("0으로는 나눌 수 없습니다.")
+        }
+    );
 
     fun hasOperatorSymbol(otherOperatorSymbol: String): Boolean {
         return this.operatorSymbol == otherOperatorSymbol
     }
+
+    fun calculate(leftValue: Double, rightValue: Double): Double = this.calculateStrategy(leftValue, rightValue)
 
     companion object {
         fun findByOperatorSymbol(operatorSymbol: String): Operator {

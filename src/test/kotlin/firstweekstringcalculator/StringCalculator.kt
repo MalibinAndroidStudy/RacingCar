@@ -8,59 +8,23 @@ class StringCalculator {
 
     @Test
     fun stringCalculatorTestFunction() {
+        // given
         val calculationString: String = "2 + 3 * 4 / 2"
         val stringCalculation = StringCalculation()
+        // when
+        val calculateList = InputCalculationString().toCalculationList(calculationString)
 
-        assertThat(stringCalculation.calculate(calculationString)).isEqualTo(10.0)
-    }
-
-    @Test
-    fun ariseStringCalculatorIllegalArgumentExceptionCaseNull() {
-        val calculationString: String? = null
-        val stringCalculation = StringCalculation()
-
-        assertThatThrownBy { stringCalculation.calculate(calculationString) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("입력값이 Null 이거나 공백일 수 없습니다")
-    }
-
-    @Test
-    fun ariseStringCalculatorIllegalArgumentExceptionCaseBlank() {
-        val calculationString: String = "  "
-        val stringCalculation = StringCalculation()
-
-        assertThatThrownBy { stringCalculation.calculate(calculationString) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("입력값이 Null 이거나 공백일 수 없습니다")
-    }
-
-    @Test
-    fun ariseStringCalculatorIllegalArgumentExceptionCaseWrongOperator() {
-        val calculationString: String = "2 $ 3 * 4 / 2"
-        val stringCalculation = StringCalculation()
-
-        assertThatThrownBy { stringCalculation.calculate(calculationString) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("연산자로 사용하실 수 없습니다. +, -, *, / 의 연산을 사용해주세요.")
-    }
-
-    @Test
-    fun ariseStringCalculatorIllegalArgumentExceptionCaseWrongOperand() {
-        val calculationString: String = "2 + 3# * 4 / 2"
-        val stringCalculation = StringCalculation()
-
-        assertThatThrownBy { stringCalculation.calculate(calculationString) }
-            .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("피연산자로 사용될 수 없습니다.")
+        assertThat(stringCalculation.calculate(calculateList)).isEqualTo(10.0)
     }
 
     @Test
     fun ariseStringCalculatorIndexOutOfBoundsExceptionContinuousOperand() {
         val calculationString: String = "2 3"
         val stringCalculation = StringCalculation()
+        val calculateList = InputCalculationString().toCalculationList(calculationString)
 
-        assertThatThrownBy { stringCalculation.calculate(calculationString) }
+        assertThatThrownBy { stringCalculation.calculate(calculateList) }
             .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("입력 받은 값이 수식이 아닙니다!")
+            .hasMessage("입력받은 값은 수식이 아닙니다!")
     }
 }

@@ -1,9 +1,8 @@
 package firstweekstringcalculator
 
 fun main() {
-    val readCalculateString: String? = readLine()
+    val readCalculateString = inputCalculateString()
+    val calculationList = InputCalculationString().toCalculationList(readCalculateString)
 
-    val stringCalculation = StringCalculation().calculate(readCalculateString)
-
-    println(stringCalculation)
+    println(StringCalculation().calculate(calculationList))
 }
