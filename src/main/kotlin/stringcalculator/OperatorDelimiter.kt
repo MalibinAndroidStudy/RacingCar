@@ -1,6 +1,6 @@
 package stringcalculator
 
-class NumberCharacterDistinguisher {
+class OperatorDelimiter {
 
     fun makeNumberListFirstAndOperatorListSecond(parsedExpression: List<String>): Pair<MutableList<Double>, MutableList<String>> {
         val numberList = mutableListOf<Double>()
