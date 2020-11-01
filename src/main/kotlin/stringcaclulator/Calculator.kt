@@ -1,18 +1,22 @@
 package stringcaclulator
 
 import java.lang.IllegalArgumentException
-import kotlin.math.round
 
 enum class Operator(
     private val operator: String,
+    private val operateStrategy: (Double, Double) -> Double
 ) {
-    PLUS("+"),
-    MINUS("-"),
-    MULTIPLY("*"),
-    DIVIDE("/");
+    PLUS("+", { leftValue, rightValue -> leftValue + rightValue }),
+    MINUS("-", { leftValue, rightValue -> leftValue - rightValue }),
+    MULTIPLY("*", { leftValue, rightValue -> leftValue * rightValue }),
+    DIVIDE("/", { leftValue, rightValue -> leftValue / rightValue });
 
     fun hasSymbol(otherSymbol: String) =
         this.operator == otherSymbol
+
+    fun operate(leftNumber: Double, rightNumber: Double): Double {
+        return this.operateStrategy(leftNumber, rightNumber)
+    }
 
     companion object {
         fun findOperator(symbol: String): Operator {
@@ -23,24 +27,18 @@ enum class Operator(
 }
 
 class Calculator {
-    private var acc = 0.0
-
-    fun calculate(input: String): Double {
-        val mathExpression = input.split(" ")
+    fun calculate(mathExpression: List<String>): Double {
         Checker.checkMathExpressionSize(mathExpression)
-        return calculateProgressively(mathExpression)
-    }
+        Checker.checkNumber(mathExpression[0])
+        var acc = mathExpression[0].toDouble()
 
-    private fun calculateProgressively(splitList: List<String>): Double {
-        Checker.checkNumber(splitList[0])
-        acc = splitList[0].toDouble()
-
-        for (i in 1 until splitList.size step 2) {
-            val symbol = splitList[i]
-            val number = splitList[i + 1]
+        for (i in 1 until mathExpression.size step 2) {
+            val symbol = mathExpression[i]
+            val number = mathExpression[i + 1]
             checkValidity(number, symbol)
             acc = accumulateCalculation(
                 symbol,
+                acc,
                 number.toDouble()
             )
         }
@@ -52,27 +50,8 @@ class Calculator {
         Checker.checkOperator(operator)
     }
 
-    private fun accumulateCalculation(symbol: String, number: Double): Double {
+    private fun accumulateCalculation(symbol: String, acc: Double, number: Double): Double {
         val operator = Operator.findOperator(symbol)
-        return when (operator) {
-            Operator.PLUS -> add(acc, number)
-            Operator.MINUS -> subtract(acc, number)
-            Operator.MULTIPLY -> multiply(acc, number)
-            Operator.DIVIDE -> divide(acc, number)
-        }
+        return operator.operate(acc, number)
     }
-
-    private fun add(number1: Double, number2: Double): Double {
-        val result = number1 + number2
-        return round(result * 1000) / 1000.0
-    }
-
-    private fun subtract(number1: Double, number2: Double): Double {
-        val result = number1 - number2
-        return round(result * 1000) / 1000.0
-    }
-
-    private fun multiply(number1: Double, number2: Double) = number1 * number2
-
-    private fun divide(number1: Double, number2: Double) = number1 / number2
 }
