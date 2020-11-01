@@ -1,7 +1,7 @@
 package stringcaclulator
 
 fun main() {
-    val input = readLine()
-    val result = Calculator().calculate(input!!)
+    val mathExpression = readLine()!!.split(" ")
+    val result = Calculator().calculate(mathExpression)
     print(result)
 }
