@@ -14,7 +14,7 @@ class CalculatorTest {
         // given
         val calculator = Calculator()
         // when
-        val result = calculator.calculate(mathExpression)
+        val result = calculator.calculate(mathExpression.split(" "))
         // then
         assertThat(result).isEqualTo(expectedResult)
     }
@@ -30,7 +30,7 @@ class CalculatorTest {
         // given
         val calculator = Calculator()
         // when
-        val result = calculator.calculate(mathExpression)
+        val result = calculator.calculate(mathExpression.split(" "))
         assertThat(result).isEqualTo(expectedResult)
     }
 
@@ -45,7 +45,7 @@ class CalculatorTest {
         // given
         val calculator = Calculator()
         // when
-        val result = calculator.calculate(mathExpression)
+        val result = calculator.calculate(mathExpression.split(" "))
         assertThat(result).isEqualTo(expectedResult)
     }
 
@@ -59,7 +59,7 @@ class CalculatorTest {
         // given
         val calculator = Calculator()
         // when
-        val result = calculator.calculate(mathExpression)
+        val result = calculator.calculate(mathExpression.split(" "))
         // then
         assertThat(result).isEqualTo(expectedResult)
     }
@@ -75,7 +75,7 @@ class CalculatorTest {
         // given
         val calculator = Calculator()
         // when
-        val result = calculator.calculate(mathExpression)
+        val result = calculator.calculate(mathExpression.split((" ")))
         // then
         assertThat(result).isEqualTo(expectedResult)
     }
