@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-class GoOrNotTest {
-    private val goOrNot = GoOrNot()
+class OneStepGoOrNotTest {
+    private val oneStepGoOrNot = OneStepGoOrNot()
 
     @DisplayName("한 칸 전진 테스트")
     @TestFactory
     fun judgeCanGoTest(): Stream<DynamicTest> {
         val tryGoForwardGenerator = object : Iterator<Boolean> {
             override fun hasNext(): Boolean {
-                return goOrNot.judgeCanGo()
+                return oneStepGoOrNot.judgeCanGo()
             }
 
             override fun next(): Boolean {
@@ -34,7 +34,7 @@ class GoOrNotTest {
     @Test
     fun createRandomNumTest() {
         //given
-        val randomInteger = goOrNot.createRandomNum()
+        val randomInteger = oneStepGoOrNot.createRandomNum()
         // then
         assertTrue { randomInteger >= 1 }
         assertTrue { randomInteger <= 9 }

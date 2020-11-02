@@ -1,10 +1,11 @@
 package racingcar
 
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import java.util.Random
 import java.util.stream.Stream
 
 /**
@@ -55,13 +56,16 @@ class RacingCarTest {
     @DisplayName("전진했을 때 carStep이 변하는지 테스트")
     @TestFactory
     fun tryGoForwardTest(): Stream<DynamicTest> {
+        //given
+        val racingCar = RacingCar()
+        var carStepList: List<String> = racingCar.getCarStepList()
+
+        //when
         val tryGoForwardGenerator = object : Iterator<List<String>> {
-            var racingCar = RacingCar()
-            var carStepList: List<String> = listOf()
             override fun hasNext(): Boolean {
-                racingCar.tryGoForward()
                 carStepList = racingCar.getCarStepList()
-                return carStepList.isNotEmpty()
+                racingCar.tryGoForward()
+                return carStepList != racingCar.getCarStepList()
             }
 
             override fun next(): List<String> {
@@ -69,10 +73,13 @@ class RacingCarTest {
             }
         }
 
-        val displayStepGenerator: (step: List<String>) -> String = { step -> "step:$step" }
+        val displayStepGenerator: (steps: List<String>) -> String = { steps -> "step:$steps" }
 
-        val testExecutor: (step: List<String>) -> Unit = { step -> assertTrue(step.isNotEmpty()) }
+        val testExecutor: (steps: List<String>) -> Unit = { steps ->
+            assertThat(steps).isNotEqualTo(racingCar.getCarStepList())
+        }
 
+        //then
         return DynamicTest.stream(tryGoForwardGenerator, displayStepGenerator, testExecutor)
     }
 }

@@ -1,8 +1,8 @@
 package racingcar
 
-import java.util.concurrent.ThreadLocalRandom
+import kotlin.random.Random
 
-class GoOrNot {
+class OneStepGoOrNot {
     companion object {
         const val BOUND = 10
         const val MIN_NUM_OF_GO = 4
@@ -16,6 +16,6 @@ class GoOrNot {
     }
 
     fun createRandomNum(): Int {
-        return ThreadLocalRandom.current().nextInt(BOUND)
+        return Random.nextInt(BOUND)
     }
 }
