@@ -1,18 +1,17 @@
 package racingcar
 
 class RacingCars(
-    private var carList: MutableList<RacingCar> = mutableListOf()
+    numOfCar: Int
 ) {
-    fun prepareCar(numOfCar: Int) {
-        val carList = mutableListOf<RacingCar>()
+    private var carList: MutableList<RacingCar> = mutableListOf()
+    init {
         for (i in 0 until numOfCar) {
             val racingCar = RacingCar()
             carList.add(racingCar)
         }
-        this.carList = carList
     }
 
     fun getCurrentCarList(): MutableList<RacingCar> {
-        return carList
+        return carList.toMutableList()
     }
 }

@@ -12,6 +12,6 @@ class RacingCar(
     }
 
     fun getCarStepList(): MutableList<String> {
-        return carStepList
+        return carStepList.toMutableList()
     }
 }
