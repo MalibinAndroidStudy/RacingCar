@@ -5,7 +5,7 @@ class RacingCars(
 ) {
     private var carList: MutableList<RacingCar> = mutableListOf()
     init {
-        for (i in 0 until numOfCar) {
+        repeat(numOfCar){
             val racingCar = RacingCar()
             carList.add(racingCar)
         }

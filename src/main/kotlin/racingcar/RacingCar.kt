@@ -1,7 +1,7 @@
 package racingcar
 
 class RacingCar(
-    private var carStepList: MutableList<String> = mutableListOf()
+    private val carStepList: MutableList<String> = mutableListOf()
 ) {
     private val oneStepGoOrNot = OneStepGoOrNot()
     fun tryGoForward() {
@@ -10,7 +10,7 @@ class RacingCar(
         }
     }
 
-    fun getCarStepList(): MutableList<String> {
-        return carStepList.toMutableList()
+    fun getCarStepList(): List<String> {
+        return carStepList.toList()
     }
 }
